@@ -7,8 +7,6 @@ namespace SaccoApi.Models
         [Key]
         public string LoanCode { get; set; }
         public string? LoanType { get; set; }
-        public short MinimumPaidForBridging { get; set; }
-        public short MinimumPaidForTopup { get; set; }
         public string LoanAcc { get; set; }
         public string? InterestAcc { get; set; }
         public string PenaltyAcc { get; set; }
@@ -42,7 +40,6 @@ namespace SaccoApi.Models
         public long ID { get; set; }
         public string AccruedAcc { get; set; }
         public string PPAcc { get; set; }
-        public int MDTEI { get; set; }
         public string intrecovery { get; set; }
         public bool isMain { get; set; }
         public bool selfGuarantee { get; set; }

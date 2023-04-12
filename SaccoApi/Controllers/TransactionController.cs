@@ -65,7 +65,7 @@ namespace SaccoApi.Controllers
                     Data = ""
                 };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return new ReturnData
                 {
@@ -91,12 +91,12 @@ namespace SaccoApi.Controllers
                 var loanCode = loanType?.LoanCode ?? "";
                 var loanBal = _context.LOANBAL.FirstOrDefault(b => b.MemberNo.ToUpper().Equals(l.MemberNo.ToUpper())  
                 && b.LoanCode.ToUpper().Equals(loanCode.ToUpper()) && b.FirstDate <= DateTime.Today && b.LastDate >= DateTime.Today);
-                // MemberNo, Amount, Date, AuditID
                 decimal.TryParse(l.Amount, out decimal amount);
+                var loanNo = loanBal?.LoanNo ?? "";
                 var transDate = Convert.ToDateTime(l.Date);
                 repays.Add(new Repay
                 {
-                    LoanNo = loanBal.LoanNo,
+                    LoanNo = loanNo,
                     DateReceived = transDate.Date,
                     PaymentNo = memberNo,
                     Amount = amount,
@@ -104,34 +104,15 @@ namespace SaccoApi.Controllers
                     Interest = 0,
                     IntrCharged = 0,
                     IntrOwed = 0,
-                    IntrAccrued = null,
                     Penalty = 0,
                     LoanBalance = 0,
                     ReceiptNo = "SYNCH",
-                    chequeno = null,
-                    Locked = null,
-                    Posted = null,
-                    Accrued = null,
                     Remarks = "Loan Repayment Rcpt("+ member.Surname + ")",
                     AuditID = l.AuditID,
-                    nextduedate = null,
                     AuditTime = DateTime.Now,
                     Transby = l.AuditID,
                     IntBalance = 0,
-                    Loancode = null,
-                    Interestaccrued = null,
-                    MRNo = null,
-                    MRCleared = null,
-                    Transno = null,
                     TransDate = transDate.Date,
-                    BridgeInterest = null,
-                    BrgLoan = null,
-                    Statementdate = null,
-                    LoanAcc = null,
-                    InterestAcc = null,
-                    ContraAcc = null,
-                    Cash = null,
-                    CashBookDate = null,
                     dregard = 0,
                     offs = 0,
                     TransactionNo = l.AuditID + "" + DateTime.Now,
@@ -153,7 +134,6 @@ namespace SaccoApi.Controllers
                     doc_posted = 1,
                     ChequeNo = "SYNCH",
                     dregard = false,
-                    Recon = null,
                     TransactionNo = l.AuditID + "" + DateTime.Now,
                     Module = "",
                     ReconId = 0
@@ -190,26 +170,13 @@ namespace SaccoApi.Controllers
                     TransBy = s.AuditID,
                     ChequeNo = "Cash",
                     ReceiptNo = "SYNCH",
-                    Locked = null,
-                    Posted = null,
                     Remarks = "MEMBER  RECEIPT",
                     AuditID = s.AuditID,
                     AuditTime = DateTime.Now,
-                    schemecode = null,
-                    TransferDesc = null,
-                    MrCleared = null,
-                    mrno = null,
                     TransNo = "",
                     Offset = false,
-                    TransDate = null,
-                    SharesAcc = null,
-                    ContraAcc = null,
-                    CashBookdate = null,
-                    dregard = null,
-                    offs = null,
                     sharescode = shareType.SharesCode,
                     TransactionNo = s.AuditID + "" + DateTime.Now,
-                    Glamount = null,
                     year = transDate.Month < 3 ? transDate.Year - 1 : transDate.Year,
                     Closed = 0
                 });
@@ -230,7 +197,6 @@ namespace SaccoApi.Controllers
                     doc_posted = 1,
                     ChequeNo = "SYNCH",
                     dregard = false,
-                    Recon = null,
                     TransactionNo = s.AuditID + "" + DateTime.Now,
                     Module = "",
                     ReconId = 0
