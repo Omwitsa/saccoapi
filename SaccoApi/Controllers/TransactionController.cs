@@ -89,8 +89,8 @@ namespace SaccoApi.Controllers
                 var member = _context.MEMBERS.FirstOrDefault(m => m.MemberNo == memberNo);
                 var loanType = _context.LOANTYPE.FirstOrDefault(t => t.LoanType.ToUpper().Equals(l.LoanShareType.ToUpper()));
                 var loanCode = loanType?.LoanCode ?? "";
-                var loanBal = _context.LOANBAL.FirstOrDefault(b => b.MemberNo.ToUpper().Equals(l.MemberNo.ToUpper())  
-                && b.LoanCode.ToUpper().Equals(loanCode.ToUpper()) && b.FirstDate <= DateTime.Today && b.LastDate >= DateTime.Today);
+                var loanBal = _context.LOANBAL.Where(b => b.MemberNo.ToUpper().Equals(l.MemberNo.ToUpper())  
+                && b.LoanCode.ToUpper().Equals(loanCode.ToUpper())).OrderByDescending(b => b.LastDate).FirstOrDefault();
                 decimal.TryParse(l.Amount, out decimal amount);
                 var loanNo = loanBal?.LoanNo ?? "";
                 var transDate = Convert.ToDateTime(l.Date);
