@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 
 namespace SaccoApi.Models
 {
@@ -17,6 +15,10 @@ namespace SaccoApi.Models
 
         public virtual DbSet<Member> MEMBERS { get; set; }
         public virtual DbSet<Repay> REPAY { get; set; }
-        public virtual DbSet<GlTransactionS> GLTRANSACTIONS { get; set; }
+        public virtual DbSet<GlTransaction> GLTRANSACTIONS { get; set; }
+        public virtual DbSet<Contrib> CONTRIB { get; set; }
+        public virtual DbSet<ShareType> sharetype { get; set; }
+        public virtual DbSet<LoansType> LOANTYPE { get; set; }
+        public virtual DbSet<LoanBal> LOANBAL { get; set; }
     }
 }
